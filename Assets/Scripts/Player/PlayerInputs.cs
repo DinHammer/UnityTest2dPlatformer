@@ -29,14 +29,11 @@ public class PlayerInputs : MonoBehaviour
     private void Update()
     {
         MoveLeftRight = _inputs.Player.LeftRight.ReadValue<float>();
+        IsJump = false;
 
         if (_inputs.Player.Jump.triggered)
         {
             IsJump = true;
-        }
-        else
-        {
-            IsJump = false;
         }
 
     }

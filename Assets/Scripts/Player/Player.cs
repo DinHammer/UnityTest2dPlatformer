@@ -18,12 +18,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        InvokeCoinsChange(_coins);
-    }
-    
-    private void InvokeCoinsChange(int value)
-    {
-        CoinsChanged?.Invoke(value);
+        CoinsChanged?.Invoke(_coins);
     }
 
     public void FinishGame(string text = "Гамовер")
@@ -34,7 +29,7 @@ public class Player : MonoBehaviour
     public void TakeCoin(int reward)
     {
         _coins += reward;
-        InvokeCoinsChange(_coins);
+        CoinsChanged?.Invoke(_coins);
         
         if (_coins >= _maxCoins)
         {
