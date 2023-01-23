@@ -4,16 +4,18 @@ using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(PlayerInputs))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    protected const float MINMOVEDISTANCE = 0.001f;
-    protected const float SHELLRADIUS = 0.01f;
+    protected const float MinMoveDistance = 0.001f;
+    protected const float ShellRadius = 0.01f;
     
     [SerializeField] private float _speedHorizontal;
     [SerializeField] private float _speedVertical;
     
     private PlayerInputs _inputs;
     private SpriteRenderer _spriteRenderer;
+    private Rigidbody2D _rb2d;
 
     public float MinGroundNormalY = .65f;
     public float GravityModifier = 1f;
@@ -23,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     protected Vector2 targetVelocity;
     protected bool grounded;
     protected Vector2 groundNormal;
-    protected Rigidbody2D rb2d;
+    
     protected ContactFilter2D contactFilter;
     protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
     protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
@@ -32,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _inputs = GetComponent<PlayerInputs>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        rb2d = GetComponent<Rigidbody2D>();
+        _rb2d = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -51,11 +53,11 @@ public class PlayerMovement : MonoBehaviour
             Velocity.y = _speedVertical;
         }
 
-        if (_inputs.MoveLeftRight == 1.0)
+        if (_inputs.MoveLeftRight > 0)
         {
             _spriteRenderer.flipX = false;
         }
-        else if (_inputs.MoveLeftRight == -1f)
+        else if (_inputs.MoveLeftRight < 0)
         {
             _spriteRenderer.flipX = true;
         }
@@ -83,9 +85,9 @@ public class PlayerMovement : MonoBehaviour
     {
         float distance = move.magnitude;
 
-        if (distance > MINMOVEDISTANCE)
+        if (distance > MinMoveDistance)
         {
-            int count = rb2d.Cast(move, contactFilter, hitBuffer, distance + SHELLRADIUS);
+            int count = _rb2d.Cast(move, contactFilter, hitBuffer, distance + ShellRadius);
 
             hitBufferList.Clear();
 
@@ -113,11 +115,11 @@ public class PlayerMovement : MonoBehaviour
                     Velocity = Velocity - projection * currentNormal;
                 }
 
-                float modifiedDistance = hitBufferList[i].distance - SHELLRADIUS;
+                float modifiedDistance = hitBufferList[i].distance - ShellRadius;
                 distance = modifiedDistance < distance ? modifiedDistance : distance;
             }
         }
 
-        rb2d.position = rb2d.position + move.normalized * distance;
+        _rb2d.position = _rb2d.position + move.normalized * distance;
     }
 }
