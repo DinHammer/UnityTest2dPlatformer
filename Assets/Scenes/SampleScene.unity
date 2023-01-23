@@ -938,6 +938,14 @@ PrefabInstance:
       propertyPath: _time
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7392559548385940072, guid: da768924ad43480439afd1e2ae182107, type: 3}
+      propertyPath: _time
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7392559548385940072, guid: da768924ad43480439afd1e2ae182107, type: 3}
+      propertyPath: _endPoint
+      value: 
+      objectReference: {fileID: 1887560127}
     - target: {fileID: 8575866205640589260, guid: da768924ad43480439afd1e2ae182107, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -2369,6 +2377,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1650405429 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 12696800798236816, guid: da768924ad43480439afd1e2ae182107, type: 3}
+  m_PrefabInstance: {fileID: 12696800950973345}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1691422390
 GameObject:
   m_ObjectHideFlags: 0
@@ -2604,6 +2617,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 10.307867}
   m_EdgeRadius: 0
+--- !u!4 &1887560127 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 12696800798236816, guid: da768924ad43480439afd1e2ae182107, type: 3}
+  m_PrefabInstance: {fileID: 566750997}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1935933969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3335,6 +3353,14 @@ PrefabInstance:
       propertyPath: _time
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7392559548385940072, guid: da768924ad43480439afd1e2ae182107, type: 3}
+      propertyPath: _time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7392559548385940072, guid: da768924ad43480439afd1e2ae182107, type: 3}
+      propertyPath: _endPoint
+      value: 
+      objectReference: {fileID: 1650405429}
     - target: {fileID: 8575866205640589260, guid: da768924ad43480439afd1e2ae182107, type: 3}
       propertyPath: m_Name
       value: Enemy

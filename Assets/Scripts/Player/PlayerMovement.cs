@@ -6,6 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInputs))]
 public class PlayerMovement : MonoBehaviour
 {
+    protected const float MINMOVEDISTANCE = 0.001f;
+    protected const float SHELLRADIUS = 0.01f;
+    
     [SerializeField] private float _speedHorizontal;
     [SerializeField] private float _speedVertical;
     
@@ -24,11 +27,7 @@ public class PlayerMovement : MonoBehaviour
     protected ContactFilter2D contactFilter;
     protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
     protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
-
-    protected const float minMoveDistance = 0.001f;
-    protected const float shellRadius = 0.01f;
     
-
     private void Awake()
     {
         _inputs = GetComponent<PlayerInputs>();
@@ -84,9 +83,9 @@ public class PlayerMovement : MonoBehaviour
     {
         float distance = move.magnitude;
 
-        if (distance > minMoveDistance)
+        if (distance > MINMOVEDISTANCE)
         {
-            int count = rb2d.Cast(move, contactFilter, hitBuffer, distance + shellRadius);
+            int count = rb2d.Cast(move, contactFilter, hitBuffer, distance + SHELLRADIUS);
 
             hitBufferList.Clear();
 
@@ -114,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
                     Velocity = Velocity - projection * currentNormal;
                 }
 
-                float modifiedDistance = hitBufferList[i].distance - shellRadius;
+                float modifiedDistance = hitBufferList[i].distance - SHELLRADIUS;
                 distance = modifiedDistance < distance ? modifiedDistance : distance;
             }
         }
